@@ -1,0 +1,90 @@
+.app {
+	box-sizing: border-box;
+	min-height: 100vh;
+	padding: 2rem;
+	background-color: #f1f5f1;
+	background-image: linear-gradient(135deg, #f1f5f1 0%, #e7eee9 100%);
+	color: #1d2924;
+	font-family: 'Avenir Next', Avenir, sans-serif;
+}
+
+.app * {
+	box-sizing: border-box;
+}
+
+.workspace {
+	width: min(100%, 68rem);
+	margin-right: auto;
+	margin-left: auto;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1rem;
+}
+
+.workspace > :global(*) {
+	min-width: 0;
+	padding: 1.25rem;
+	border: 1px solid #d8e1db;
+	border-radius: 8px;
+	background: #fff;
+	box-shadow: 0 8px 24px rgb(29 41 36 / 5%);
+}
+
+.workspace > :global(:first-child) {
+	grid-column: 1 / -1;
+}
+
+.app h1 {
+	width: min(100%, 68rem);
+	margin: 0 auto 1.5rem;
+	color: #245b45;
+	font-size: 2.25rem;
+	font-weight: 800;
+	line-height: 1.1;
+}
+
+.app h2,
+.app h3 {
+	margin-top: 0;
+	color: #245b45;
+}
+
+.app input {
+	min-width: 0;
+	padding: 0.7rem 0.8rem;
+	border: 1px solid #aebbb4;
+	border-radius: 4px;
+	color: inherit;
+	font: inherit;
+}
+
+.app button {
+	padding: 0.7rem 1rem;
+	border: 0;
+	border-radius: 4px;
+	background: #245b45;
+	color: #fff;
+	cursor: pointer;
+	font: inherit;
+	font-weight: 700;
+}
+
+.app button:focus-visible,
+.app input:focus-visible {
+	outline: 3px solid #e5a83b;
+	outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+	.app {
+		padding: 1rem;
+	}
+
+	.workspace {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.workspace > :global(*) {
+		padding: 1rem;
+	}
+}
