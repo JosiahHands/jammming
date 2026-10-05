@@ -1,6 +1,6 @@
 
 const clientId = '';
-const redirectUri = 'http://localhost:5173/';
+const redirectUri = 'http://127.0.0.1:5173/';
 let accessToken: string | null = null;
 const spotify = {
     getAccessToken: () => {
