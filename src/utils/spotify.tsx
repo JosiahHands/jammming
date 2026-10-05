@@ -24,11 +24,23 @@ const Spotify = {
         if (accessToken) {
             return accessToken;
         }
-        const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
-        const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
-        if (accessTokenMatch && expiresInMatch) {
-            accessToken = accessTokenMatch[1];
-            const expiresIn = Number(expiresInMatch[1]);
+        const code = new URLSearchParams(window.location.search).get('code');
+        if (code) {
+            const codeVerifier = window.localStorage.getItem('code_verifier');
+            const response = await fetch('https://accounts.spotify.com/api/token', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    client_id: clientId,
+                    grant_type: 'authorization_code',
+                    code,
+                    redirect_uri: redirectUri,
+                    code_verifier: codeVerifier ?? '',
+                }),
+            });
+            const json = await response.json();
+            accessToken = json.access_token;
+            const expiresIn = Number(json.expires_in);
             window.setTimeout(() => accessToken = '', expiresIn * 1000);
             window.history.pushState('Access Token', '', '/');
             return accessToken;
