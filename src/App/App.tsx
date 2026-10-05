@@ -5,11 +5,11 @@ import SearchResults from '../components/SearchResults/SearchResults';
 import Playlist from '../components/Playlist/Playlist';
 
 const tracks = [
-  { name: 'Track 1', artist: 'Artist 1', album: 'Album 1', id: '1' },
-  { name: 'Track 2', artist: 'Artist 2', album: 'Album 2', id: '2' },
-  { name: 'Track 3', artist: 'Artist 3', album: 'Album 3', id: '3' },
+  { name: 'Track 1', artist: 'Artist 1', album: 'Album 1', id: '1', uri: 'uri1' },
+  { name: 'Track 2', artist: 'Artist 2', album: 'Album 2', id: '2', uri: 'uri2' },
+  { name: 'Track 3', artist: 'Artist 3', album: 'Album 3', id: '3', uri: 'uri3' },
 ];
-const playlist: { name: string; artist: string; album: string; id: string }[] = [];
+const playlist: { name: string; artist: string; album: string; id: string; uri: string }[] = [];
 
 function App() {
   const [searchResults, setSearchResults] = useState(tracks)
@@ -30,7 +30,12 @@ function App() {
     setPlaylistName(name);
   };
   const handleAddTrack = (track: any) => {
-    setPlayListTracks((prevTracks) => [...prevTracks, track]);
+    setPlayListTracks((prevTracks) => {
+      if (prevTracks.some((t) => t.id === track.id)) {
+        return prevTracks;
+      }
+      return [...prevTracks, track];
+    });
   };
   const handleRemoveTrack = (track: any) => {
     setPlayListTracks((prevTracks) => {
