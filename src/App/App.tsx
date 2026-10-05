@@ -3,7 +3,7 @@ import styles from './App.module.css';
 import SearchBar from '../components/SearchBar/SearchBar';
 import SearchResults from '../components/SearchResults/SearchResults';
 import Playlist from '../components/Playlist/Playlist';
-
+import Spotify from '../utils/spotify';
 const tracks = [
   { name: 'Track 1', artist: 'Artist 1', album: 'Album 1', id: '1', uri: 'uri1' },
   { name: 'Track 2', artist: 'Artist 2', album: 'Album 2', id: '2', uri: 'uri2' },
@@ -19,14 +19,9 @@ function App() {
   const [playListTracks, setPlayListTracks] = useState(playlist); 
 
   const handleSearch = (query: string) => {
-    const normalizedQuery = query.trim().toLowerCase();
-    setSearchResults(
-      tracks.filter((track) =>
-        `${track.name} ${track.artist} ${track.album}`
-          .toLowerCase()
-          .includes(normalizedQuery),
-      ),
-    );
+    Spotify.search(query).then(searchResults => {
+      setSearchResults(searchResults);
+    });
   };
   const handlePlaylistNameChange = (name: string) => {
     setPlaylistName(name);
