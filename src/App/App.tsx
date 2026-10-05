@@ -11,6 +11,8 @@ const tracks = [
 ];
 const playlist: { name: string; artist: string; album: string; id: string; uri: string }[] = [];
 
+
+
 function App() {
   const [searchResults, setSearchResults] = useState(tracks)
   const [playlistName, setPlaylistName] = useState('New Playlist');
@@ -43,13 +45,23 @@ function App() {
       return prevTracks.filter((_, index) => index !== trackIndex);
     });
   };
+  const savePlaylist = () => {
+    const trackUris = playListTracks.map(track => track.uri);
+    setPlayListTracks([]);
+    alert('Playlist saved!');
+  };
   return (
     <main className={styles.app}>
       <h1>Jammming</h1>
       <div className={styles.workspace}>
         <SearchBar onSearch={handleSearch} />
         <SearchResults searchResults={searchResults} handleAddTrack={handleAddTrack} />
-        <Playlist playlistName={playlistName} onPlaylistNameChange={handlePlaylistNameChange} playListTracks={playListTracks} handleRemoveTrack={handleRemoveTrack} />
+        <Playlist 
+          playlistName={playlistName} 
+          onPlaylistNameChange={handlePlaylistNameChange} 
+          playListTracks={playListTracks}  
+          handleRemoveTrack={handleRemoveTrack}
+          savePlaylist={savePlaylist} />
       </div>
     </main>
   )
