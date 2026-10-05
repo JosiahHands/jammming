@@ -37,9 +37,10 @@ function App() {
   };
   const savePlaylist = () => {
     const trackUris = playListTracks.map(track => track.uri);
-    console.log(playlistName, trackUris);
-    setPlaylistName('New Playlist');
-    setPlayListTracks([]);
+    Spotify.savePlaylist(playlistName, trackUris).then(() => {
+      setPlaylistName('New Playlist');
+      setPlayListTracks([]);
+    });
   };
   return (
     <main className={styles.app}>

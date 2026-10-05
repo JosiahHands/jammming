@@ -81,6 +81,23 @@ const Spotify = {
                 uri: track.uri
             }));
         })
+    },
+    savePlaylist: async (playlistName: string, trackUris: string[]) => {
+        if (!playlistName.trim() || !trackUris.length) {
+            return;
+        }
+        const accessToken = await Spotify.getAccessToken();
+        const headers = { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' };
+        const playlistResponse = await fetch('https://api.spotify.com/v1/me/playlists', {
+            method: 'POST', headers, body: JSON.stringify({ name: playlistName }),
+        });
+        if (!playlistResponse.ok) throw new Error(`Playlist creation failed (${playlistResponse.status}).`);
+        const { id } = await playlistResponse.json();
+        const tracksResponse = await fetch(`https://api.spotify.com/v1/playlists/${id}/items`, {
+            method: 'POST', headers, body: JSON.stringify({ uris: trackUris }),
+        });
+        if (!tracksResponse.ok) throw new Error(`Adding tracks failed (${tracksResponse.status}).`);
+        return tracksResponse.json();
     }
 }
 export default Spotify;
