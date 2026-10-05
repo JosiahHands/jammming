@@ -61,8 +61,8 @@ const Spotify = {
             window.location.href = `https://accounts.spotify.com/authorize?${params.toString()}`;
         } 
     },
-    search(term: string) {
-        const accessToken = Spotify.getAccessToken();
+    async search(term: string) {
+        const accessToken = await Spotify.getAccessToken();
         return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
