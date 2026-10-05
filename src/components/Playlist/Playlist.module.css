@@ -1,0 +1,16 @@
+.playlist {
+    display: flex;
+    flex-direction: column;
+}
+.playlist input {
+    margin: 10px 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #245b45;
+    font-family: inherit;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: normal;
+}

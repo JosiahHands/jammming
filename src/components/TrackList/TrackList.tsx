@@ -1,7 +1,15 @@
-function TrackList() {
+import Track from "../Track/Track";
+function TrackList(props: any) {
     return (
         <div>
-            <h3>Tracklist</h3>
+            {
+                props.tracks.map((track: any) => (
+                    <div>
+                        <Track key={track.id} id={track.id} name={track.name} artist={track.artist} album={track.album} />
+                        <button onClick={props.handleClick}>{props.add === true ? '+' : '-'}</button>
+                    </div>
+                ))
+            }
         </div>
     );
 };
