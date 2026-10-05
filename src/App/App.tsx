@@ -47,8 +47,9 @@ function App() {
   };
   const savePlaylist = () => {
     const trackUris = playListTracks.map(track => track.uri);
+    console.log(playlistName, trackUris);
+    setPlaylistName('New Playlist');
     setPlayListTracks([]);
-    alert('Playlist saved!');
   };
   return (
     <main className={styles.app}>
