@@ -2,6 +2,7 @@
 const clientId = '';
 const redirectUri = 'http://127.0.0.1:5173/';
 let accessToken: string | null = null;
+const codeChallenge = '';
 const Spotify = {
     getAccessToken: () => {
         if (accessToken) {
@@ -17,10 +18,16 @@ const Spotify = {
             return accessToken;
 
         } else {
-            const accessUrl = 
-            `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
-            window.location.href = accessUrl;
-        }
+            const params = new URLSearchParams({
+            client_id: clientId,
+            response_type: 'code',
+            scope: 'playlist-modify-public',
+            redirect_uri: redirectUri,
+            code_challenge_method: 'S256',
+            code_challenge: codeChallenge,
+        });
+        window.location.href = `https://accounts.spotify.com/authorize?${params.toString()}`;
+        }   
     },
     search(term: string) {
         const accessToken = Spotify.getAccessToken();
